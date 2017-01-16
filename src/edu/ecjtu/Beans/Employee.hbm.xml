@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="edu.ecjtu.Beans">
+	<class name="Employee" table="Emp">
+		<id name="id" type="integer" column="id">
+			<generator class="native"/>
+		</id>
+		<property name="lastName" type="string" column="lastname"/>
+		<property name="email" type="string" column="email"/>
+		<property name="birthDay" type="date" column="birthday"/>
+		<property name="createDate" type="timestamp" column="createDate"></property>
+		<many-to-one name="department" column="deptId" class="Department"/>
+	</class>
+</hibernate-mapping>

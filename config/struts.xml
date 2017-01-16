@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.action.extension" value="action,do,"></constant>
+	<!-- 注意这里面的value值必须和国际化资源文件的配置资源命名一样即：i18n.注：此处配置的为全局国际化配置 -->
+	<constant name="struts.custom.i18n.resources" value="i18n"></constant>
+	<package name="default" namespace="/" extends="json-default">
+		<interceptors>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="paramsPrepareParamsStack">
+					<param name="prepare.alwaysInvokePrepare">false</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 使用新的拦截器 -->
+		<default-interceptor-ref name="myStack" />
+		<action name="emp*" class="empAction" method="{1}">
+			<result name="list">/WEB-INF/Views/emplist.jsp</result>
+			<result name="stream" type="stream"></result>
+			<result name="input">/WEB-INF/Views/empinput.jsp</result>
+			<result name="save" type="redirectAction">emplist</result>
+		</action>
+		<action name="dept*" class="deptAction" method="{1}">
+			<result name="list" type="json">
+				<param name="root">departments</param>
+			</result>
+		</action>
+	</package>
+</struts>
